@@ -3,18 +3,16 @@ import sys
 
 # Ensure current directory and workspace root are in sys.path
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-if BASE_DIR not in sys.path:
-    sys.path.insert(0, BASE_DIR)
+PARENT_DIR = os.path.dirname(BASE_DIR)
 
-backend_dir = os.path.join(BASE_DIR, "backend")
-if os.path.exists(backend_dir) and backend_dir not in sys.path:
-    sys.path.insert(0, backend_dir)
+for path in [BASE_DIR, PARENT_DIR]:
+    if path not in sys.path:
+        sys.path.insert(0, path)
 
-# Import the FastAPI app instance
 try:
-    from backend.app.main import app
-except ImportError:
     from app.main import app
+except ImportError:
+    from backend.app.main import app
 
 if __name__ == "__main__":
     import uvicorn
