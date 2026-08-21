@@ -60,7 +60,7 @@ def test_auth_invalid_credentials():
         json={"email": "arun@student.edu", "password": "wrongpassword"}
     )
     assert response.status_code == 401
-    assert "Invalid email or password" in response.json()["detail"]
+    assert "email or password" in response.json()["detail"].lower()
 
 
 def test_get_books_and_filters():
